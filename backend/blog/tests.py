@@ -1,34 +1,43 @@
 
 
 # Create your tests here.
-import time
 import random
-name = input("What is your name? ")
-print ("Hello, " + name, "Time to play hangman!")
-time.sleep(1)
-print ("Start guessing...\n")
-time.sleep(0.5)
-## A List Of Secret Words
-words = ['python','programming','treasure','creative','medium','horror']
-word = random.choice(words)
-guesses = ''
-turns = 5
-while turns > 0:         
-    failed = 0             
-    for char in word:      
-        if char in guesses:    
-            print (char,end="")    
+choices = ["Rock", "Paper", "Scissors"]
+computer = random.choice(choices)
+player = False
+cpu_score = 0
+player_score = 0
+while True:
+    player = input("Rock, Paper or  Scissors?").capitalize()
+    # 判断游戏者和电脑的选择
+    if player == computer:
+        print("Tie!")
+    elif player == "Rock":
+        if computer == "Paper":
+            print("You lose!", computer, "covers", player)
+            cpu_score+=1
         else:
-            print ("_",end=""),     
-            failed += 1    
-    if failed == 0:        
-        print ("\nYou won") 
-        break              
-    guess = input("\nguess a character:") 
-    guesses += guess                    
-    if guess not in word:  
-        turns -= 1        
-        print("\nWrong")    
-        print("\nYou have", + turns, 'more guesses') 
-        if turns == 0:           
-            print ("\nYou Lose") 
+            print("You win!", player, "smashes", computer)
+            player_score+=1
+    elif player == "Paper":
+        if computer == "Scissors":
+            print("You lose!", computer, "cut", player)
+            cpu_score+=1
+        else:
+            print("You win!", player, "covers", computer)
+            player_score+=1
+    elif player == "Scissors":
+        if computer == "Rock":
+            print("You lose...", computer, "smashes", player)
+            cpu_score+=1
+        else:
+            print("You win!", player, "cut", computer)
+            player_score+=1
+    elif player=='E':
+        print("Final Scores:")
+        print(f"CPU:{cpu_score}")
+        print(f"Plaer:{player_score}")
+        break
+    else:
+        print("That's not a valid play. Check your spelling!")
+    computer = random.choice(choices)
